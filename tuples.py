@@ -20,6 +20,7 @@ print(metallica[2])
 emdela = emdela[0], "Emelda May", emdela[2]
 print(emdela)
 
+
 metallica2 = ["Ride the Lighting", "Metallica", 1984]
 print(metallica2)
 metallica2[0] = "Master of Puppets"
