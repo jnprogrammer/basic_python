@@ -15,9 +15,8 @@ exits = [{"Q": 0},
 loc = 1
 
 while True:
-    availableExits = " "
-    for direction in exits[loc].keys():
-        availableExits += direction + ", "
+    availableExits = " ,".join(exits[loc].keys())
+
     print(locations[loc])
 
     if loc == 0:
