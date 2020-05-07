@@ -27,7 +27,7 @@ metallica2[0] = "Master of Puppets"
 print(metallica2)
 
 
-title, artist, year = emdela
+title, artist, year =imdela
 print(title)
 print(artist)
 print(year)
