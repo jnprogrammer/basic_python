@@ -17,8 +17,8 @@ print(metallica[1])
 print(metallica[2])
 
 # metallica[0] = "Masters of Pupppest"
-emdela = emdela[0], "Emelda May", emdela[2]
-print(emdela)
+imdela = imdela[0], "Emelda May", imdela[2]
+print(imdela)
 
 
 metallica2 = ["Ride the Lighting", "Metallica", 1984]
