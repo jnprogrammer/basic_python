@@ -4,7 +4,8 @@ for character in parrot:
     print(character)
 
 
-num = "9,223;373:036 854, 775; 807"
+num = input("Enter numbers using separators ")
+
 separators = ""
 
 for char in num:
@@ -15,4 +16,4 @@ print(separators)
 
 values = "".join(char if char not in separators else " " for char in num).split()
 
-print([int(val) for val in values])
+print("Here is the total:{0} ".format(sum([int(val) for val in values])))
