@@ -27,4 +27,5 @@ while True:
         break
     else:
         print("Please enter h, l or c")
-    guesses = guesses + 1
+    #guesses = guesses + 1 augmented assignment better
+    guesses += 1
