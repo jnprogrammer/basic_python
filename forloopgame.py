@@ -3,12 +3,10 @@ stuff = ["1:\tLearn Python", "2:\tLearn Java", "3:\tLearn Go", "4:\tLearn JavaSc
 
 for i in range(len(stuff)):
     print(stuff[i])
-
-while True:
+choice = "-"
+while choice != "0":
     choice = input("\nChoose an activity . . just not Java\n")
-    if choice == "0":
-        break
-    elif choice in "12345":
+    if choice in "12345":
         print("You chose {}\n".format(choice))
         for i in range(len(stuff)):
             print(stuff[i])
