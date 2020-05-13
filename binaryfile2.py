@@ -14,7 +14,7 @@ with open("binary2", 'bw') as bin_file2:
 with open("binary2", 'br') as bin_file2:
     e = int.from_bytes(bin_file2.read(2), 'big')
     print(e)
-    f = int.from_bytes(bin_file2.read(2), 'big')
+    f = int.from_bytes(bin_file2.read(2), 'big') 
     print(f)
     g = int.from_bytes(bin_file2.read(4), 'big')
     print(g)
