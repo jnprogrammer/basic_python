@@ -1,0 +1,1 @@
+('The Roti Spot', 'Josh', 'Est. 2025', ((1, 'Curry Chicken Roti', '$25'), (2, 'Curry Goat Roti', '$30'), (3, 'Curry Veggie Roti', '$20')))
