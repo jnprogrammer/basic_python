@@ -5,7 +5,7 @@
 # #     print(m)
 
 import shelve
-
+import random
 # print(dir())
 # print()
 # print(dir(shelve))
@@ -13,4 +13,4 @@ import shelve
 # for s in dir(shelve):
 #     print(s)
 
-help(shelve)
+help(random.randint)
