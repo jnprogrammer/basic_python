@@ -5,7 +5,10 @@ def python_food():
     left_margin = (width - len(text)) // 2
     print(" " * left_margin, text)
 
-def center_txt(text):
+def center_txt(*args):
+    text = ""
+    for arg in args:
+        text += str(arg) + " "
     margin = (80 - len(text)) //2
     print(" " * margin, text)
 
@@ -13,3 +16,5 @@ def center_txt(text):
 center_txt("EHAT")
 center_txt("I need to finish python before I learn go!")
 center_txt("Gotta finish this !!")
+
+center_txt("SDGA", 43 , 34, 5, "How ? ", 34 , "NO WAY!!")
