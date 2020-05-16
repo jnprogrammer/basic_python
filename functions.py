@@ -5,16 +5,17 @@ def python_food():
     left_margin = (width - len(text)) // 2
     print(" " * left_margin, text)
 
-def center_txt(*args):
+
+def center_txt(*args, sep='', end='\n', file=None, flush=False):
     text = ""
     for arg in args:
         text += str(arg) + " "
-    margin = (80 - len(text)) //2
-    print(" " * margin, text)
+    margin = (80 - len(text)) // 2
+    return " " * margin, text
 
 
-center_txt("EHAT")
-center_txt("I need to finish python before I learn go!")
-center_txt("Gotta finish this !!")
-
-center_txt("SDGA", 43 , 34, 5, "How ? ", 34 , "NO WAY!!")
+#with open("centered.txt", mode='w') as centered_file:
+print(center_txt("EHAT"))
+print(center_txt("I need to finish python before I learn go!"))
+print(center_txt("Gotta finish this !!"))
+print(center_txt("SDGA", 43, 34, 5, "How ? ", 34, "NO WAY!!"))
