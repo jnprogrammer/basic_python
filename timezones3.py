@@ -3,8 +3,8 @@ import pytz
 
 available_zones = {'1': "Africa/Tunis",
                    '2': "Asia/Kolkata",
-                   '3': "Australian/Adelaide",
-                   '4': "Europse/Brussels",
+                   '3': "Australia/Adelaide",
+                   '4': "Europe/Brussels",
                    '5': "Europe/London",
                    '6': "Japan",
                    '7': "Pacific/Tahiti",
