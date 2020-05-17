@@ -18,8 +18,29 @@ def factorial(n):
     else:
         return n * factorial(n - 1)
 
+def fib_basic(n):
+    if n <2:
+        return n
+    else:
+        return fib(n-1) + fib(n-2)
 
-for i in range(130):
-    print(i, fact(i))
+def fibonacci(n):
+    fib_cache = {}
+    if n in fib_cache:
+       return fib_cache[n]
+    #Normal fib sequence
+    if n == 1:
+        value = 1
+    elif n == 2:
+        value = 1
+    elif n > 2:
+        value = fibonacci(n-1) + fibonacci(n-2)
+    fib_cache[n] = value
+    return value
 
-theCount(45, 2, 6)
+for n in range(1,10):
+    print(n," : ", fibonacci(n))
+# for i in range(130):
+#     print(i, fibonacci(i))
+#
+# theCount(45, 2, 6)
