@@ -14,8 +14,8 @@ def center_txt(*args, sep='', end='\n', file=None, flush=False):
     return " " * margin, text
 
 
-#with open("centered.txt", mode='w') as centered_file:
-print(center_txt("EHAT"))
-print(center_txt("I need to finish python before I learn go!"))
-print(center_txt("Gotta finish this !!"))
-print(center_txt("SDGA", 43, 34, 5, "How ? ", 34, "NO WAY!!"))
+with open("centered.txt", mode='w') as centered_file:
+    print(center_txt("EHAT"), file=centered_file)
+    print(center_txt("I need to finish python before I learn go!"))
+    print(center_txt("Gotta finish this !!"))
+    print(center_txt("SDGA", 43, 34, 5, "How ? ", 34, "NO WAY!!"))
