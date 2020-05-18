@@ -1,5 +1,6 @@
 class Kettle(object):
 
+    power_source = "electricity"
     def __init__(self, make, price):
         self.make = make
         self.price = price
@@ -10,7 +11,6 @@ class Kettle(object):
             self.on = False
         else:
             self.on = True
-
 
 
 kenwood = Kettle("Kenwood", 8.99)
@@ -40,3 +40,13 @@ print("*" * 80)
 
 hamham.power = 1.5
 print(hamham.power)
+print(kenwood.power_source)
+print(Kettle.__dict__)
+print(hamham.__dict__)
+print(kenwood.__dict__)
+
+print("Switch power to Tesla batteries")
+Kettle.power_source = "Tesla Batteries"
+
+print(kenwood.power_source)
+print(hamham.power_source)
