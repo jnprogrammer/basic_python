@@ -12,6 +12,12 @@ class Song:
         self.artist = artist
         self.duration = duration
 
+    def get_title(self):
+        return self.title
+
+    name = property(get_title)
+
+
 
 class Album:
     """Class to represent Albam, using its track list
@@ -46,32 +52,12 @@ class Album:
             position (Optional[int]): If used, the song will be added to that position in the track
             between other songs as needed else it will be added to the end of the track.
         """
-        if position is None:
-            self.tracks.append(song)
+        song_found = find_object(song, self.tracks)
+        if song_found is None:
+            song_found = Song(song, self.artist)
+            self.tracks.append(song_found)
         else:
-            self.tracks.insert(position, song)
-
-    def add_song(self, name, year, title):
-        """Add a new song to the collection of albums
-
-        This method will add the song to an album in the collection
-        A new album will be created in the collection if it doesn't already exist.
-
-        Args:
-            name (str) The name of the album
-            year (int) The year the album was made
-            title (str) The title of the song
-
-        """
-        album_found = find_object(name, self.albums)
-        if album_found is None:
-            print(name + " not found")
-            album_found = Album(name, year, self)
-            self.add_album(album_found)
-        else:
-            print("Found Album" + name)
-
-        album_found.add_song(title)
+            self.tracks.insert(position, song_found)
 
 
 class Artist:
@@ -100,6 +86,28 @@ class Artist:
         """
         self.albums.append(album)
 
+    def add_song(self, name, year, title):
+        """Add a new song to the collection of albums
+
+        This method will add the song to an album in the collection
+        A new album will be created in the collection if it doesn't already exist.
+
+        Args:
+            name (str) The name of the album
+            year (int) The year the album was made
+            title (str) The title of the song
+
+        """
+        album_found = find_object(name, self.albums)
+        if album_found is None:
+            print(name + " not found")
+            album_found = Album(name, year, self)
+            self.add_album(album_found)
+        else:
+            print("Found Album" + name)
+
+        album_found.add_song(title)
+
 
 def find_object(field, object_list):
     """
@@ -113,7 +121,6 @@ def find_object(field, object_list):
 
 
 def load_data():
-
     artist_list = []
 
     with open("albums.txt", 'r') as albums:
