@@ -6,13 +6,9 @@ print(tim.name)
 print(tim)
 tim.lives -= 1
 print(tim)
-tim.lives -= 1
+
+tim.level += 50
 print(tim)
-tim.lives -= 1
-print(tim)
-tim.lives -= 1
-print(tim)
-tim.lives -= 1
-print(tim)
-tim._lives += 9
+
+tim.level += 76
 print(tim)
