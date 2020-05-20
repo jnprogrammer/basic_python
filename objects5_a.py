@@ -12,3 +12,9 @@ print(tim)
 
 tim.level += 76
 print(tim)
+
+tim.level -= 43
+print(tim)
+
+tim.score = 43800
+print(tim)
