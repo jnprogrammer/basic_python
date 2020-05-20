@@ -20,4 +20,3 @@ class Player(object):
 
     def __str__(self):
         return "Name: {0.name}, Lives: {0.lives}, Level; {0.level}, Score {0.score}".format(self)
-
