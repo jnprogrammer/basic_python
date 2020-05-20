@@ -18,14 +18,13 @@ class Song:
     name = property(get_title)
 
 
-
 class Album:
     """Class to represent Albam, using its track list
 
     Attributes:
         album_name (str): The name of Album
         year (int): The year the album was released.
-        artist: (Artist): The Artist responsible for the album
+        artist: (str): The name of artist responsible for the album
             If Not specified the default will be "Various Artists
         tracks (List[Song]):
 
@@ -37,7 +36,7 @@ class Album:
         self.name = name
         self.year = year
         if artist is None:
-            self.artist = Artist("Various Artists")
+            self.artist = "Various Artists"
         else:
             self.artist = artist
 
@@ -101,7 +100,7 @@ class Artist:
         album_found = find_object(name, self.albums)
         if album_found is None:
             print(name + " not found")
-            album_found = Album(name, year, self)
+            album_found = Album(name, year, self.name)
             self.add_album(album_found)
         else:
             print("Found Album" + name)
