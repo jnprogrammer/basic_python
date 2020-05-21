@@ -24,4 +24,3 @@ print(blarg)
 
 while blarg.alive:
     blarg.take_damage(3)
-    print(blarg)

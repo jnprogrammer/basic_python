@@ -1,3 +1,4 @@
+import random
 class Enemy:
 
     def __init__(self, name="Enemy", hit_points=0, lives=3, attack=2):
@@ -37,3 +38,15 @@ class Ogar(Enemy):
 
     def __init__(self, name):
         super().__init__(name=name, lives=2, hit_points=42, attack=3)
+
+    def dodge(self):
+        if random.randint(1,3) == 3:
+            print("{0.name} Dodges the attack !!".format(self))
+            return True
+        else:
+            return False
+
+    def take_damage(self, damage):
+
+        if not self.dodge():
+            super().take_damage(damage=damage)
