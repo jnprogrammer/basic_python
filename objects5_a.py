@@ -2,12 +2,14 @@ from objects5 import Player
 from objects5_b import Enemy, Troll
 
 tim = Player("Tim")
-monster = Enemy("Big Monster", 12, 42)
+big_monster = Troll("Big Monster")
+print(big_monster)
 
-print(monster)
+cool_troll = Troll("Cool Troll")
+print(cool_troll)
 
-cool_troll = Troll("Cool Troll", 18, 23)
-print("The cool Troll stats - {}".format(cool_troll))
-
-time_troll = Troll("Time Troll", 18, 420)
+time_troll = Troll("Time Troll")
 print(time_troll)
+
+
+time_troll.lariat()
