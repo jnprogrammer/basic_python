@@ -5,6 +5,15 @@ class Player(object):
         self._lives = 3
         self._level = 1
         self._score = 0
+        self._attack = 5
+
+    @property
+    def attack(self):
+        return self.attack
+
+    @attack.setter
+    def attack(self, attack):
+        self._attack = attack
 
     def _get_lives(self):
         return self._lives
@@ -39,4 +48,4 @@ class Player(object):
         self._score = score
 
     def __str__(self):
-        return "Name: {0.name}, Lives: {0.lives}, Level; {0.level}, Score {0.score}".format(self)
+        return "Name: {0.name}, Lives: {0.lives}, Level; {0.level}, Attack Power: {0.attack} Score {0.score}".format(self)
