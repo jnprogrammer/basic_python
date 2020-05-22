@@ -18,9 +18,11 @@ time_troll.lariat()
 blarg = Ogar("Bancan")
 print(blarg)
 
-blarg.take_damage(40)
+#blarg.take_damage(40)
 
 print(blarg)
 
-while blarg.alive:
-    blarg.take_damage(3)
+while blarg.check_life:
+    blarg.take_damage(40)
+    if blarg._hit_points <= 0:
+        break

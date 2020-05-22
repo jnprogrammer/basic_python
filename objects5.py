@@ -9,26 +9,30 @@ class Player(object):
 
     @property
     def attack(self):
-        return self.attack
+        return self._attack
 
     @attack.setter
     def attack(self, attack):
         self._attack = attack
 
-    def _get_lives(self):
+    @property
+    def lives(self, lives):
         return self._lives
 
-    def _set_lives(self, lives):
+    @lives.setter
+    def lives(self, lives):
         if lives >= 0:
             self._lives = lives
         else:
             print("Lives can't be negative")
             self._lives = 0
 
-    def _get_level(self):
+    @property
+    def level(self, level):
         return self._level
 
-    def _set_level(self, level):
+    @level.setter
+    def level(self, level):
         if level > 0:
             delta = level - self._level
             self.score += delta * 1000
@@ -36,8 +40,8 @@ class Player(object):
         else:
             print("Level can't be less than 1")
 
-    lives = property(_get_lives, _set_lives)
-    level = property(_get_level, _set_level)
+    #lives = property(_get_lives, _set_lives)
+    #level = property(_get_level, _set_level)
 
     @property
     def score(self):
