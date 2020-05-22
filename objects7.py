@@ -8,8 +8,9 @@ class Tag(object):
     def __str__(self):
         return "{0.start_tag}{0.contents}{0.end_tag}".format(self)
 
-    def display(self):
-        print(self)
+    def display(self, file=None):
+        print(self, file=file)
+
 
 class Doc_Type(Tag):
     def __init__(self):
@@ -31,11 +32,11 @@ class Body(Tag):
         new_tag = Tag(name, contents)
         self._body_contents.append(new_tag)
 
-    def display(self):
+    def display(self, file=None ):
         for tag in self._body_contents:
             self.contents += str(tag)
 
-        super().display()
+        super().display(file=file)
 
 class HtmlDoc(object):
 
@@ -47,12 +48,12 @@ class HtmlDoc(object):
     def add_tag(self, name, contents):
         self._body.add_tag(name, contents)
 
-    def display(self):
-        self._doc_type.display()
-        print('<html>')
-        self._head.display()
-        self._body.display()
-        print('</html>')
+    def display(self, file=None):
+        self._doc_type.display(file=None)
+        print('<html>', file=None)
+        self._head.display(file=None)
+        self._body.display(file=None)
+        print('</html>', file=None)
 
 
 if __name__ == '__main__':
@@ -60,4 +61,6 @@ if __name__ == '__main__':
     my_page.add_tag('h1', 'Main TITLE')
     my_page.add_tag('h2', 'sub title')
     my_page.add_tag('p', "This was made using composition one of the multiple examples of Polymorphism")
-    my_page.display()
+
+    with open('test.html', 'w') as test_doc:
+        my_page.display(file=test_doc)
