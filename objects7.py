@@ -13,7 +13,7 @@ class Tag(object):
 
 class Doc_Type(Tag):
     def __init__(self):
-        super().__init('!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" http://www.w3.org/TR/html4/strict.dtd', '')
+        super().__init__('!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" http://www.w3.org/TR/html4/strict.dtd', '')
         self.end_tag = '' #Doctype doesn't have an end tag
 
 class Head(Tag):
@@ -36,3 +36,28 @@ class Body(Tag):
             self.contents += str(tag)
 
         super().display()
+
+class HtmlDoc(object):
+
+    def __init__(self):
+        self._doc_type = Doc_Type()
+        self._head = Head()
+        self._body = Body()
+
+    def add_tag(self, name, contents):
+        self._body.add_tag(name, contents)
+
+    def display(self):
+        self._doc_type.display()
+        print('<html>')
+        self._head.display()
+        self._body.display()
+        print('</html>')
+
+
+if __name__ == '__main__':
+    my_page = HtmlDoc()
+    my_page.add_tag('h1', 'Main TITLE')
+    my_page.add_tag('h2', 'sub title')
+    my_page.add_tag('p', "This was made using composition one of the multiple examples of Polymorphism")
+    my_page.display()
