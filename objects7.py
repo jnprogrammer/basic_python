@@ -12,7 +12,7 @@ class Tag(object):
         print(self, file=file)
 
 
-class Doc_Type(Tag):
+class DocType(Tag):
     def __init__(self):
         super().__init__('!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" http://www.w3.org/TR/html4/strict.dtd', '')
         self.end_tag = '' #Doctype doesn't have an end tag
