@@ -40,8 +40,8 @@ class Body(Tag):
 
 class HtmlDoc(object):
 
-    def __init__(self):
-        self._doc_type = Doc_Type()
+    def __init__(self, doc_type, head, body):
+        self._doc_type = DocType()
         self._head = Head()
         self._body = Body()
 
@@ -56,11 +56,26 @@ class HtmlDoc(object):
         print('</html>', file=None)
 
 
-if __name__ == '__main__':
-    my_page = HtmlDoc()
-    my_page.add_tag('h1', 'Main TITLE')
-    my_page.add_tag('h2', 'sub title')
-    my_page.add_tag('p', "This was made using composition one of the multiple examples of Polymorphism")
+# if __name__ == '__main__':
+#     my_page = HtmlDoc()
+#     my_page.add_tag('h1', 'Main TITLE')
+#     my_page.add_tag('h2', 'sub title')
+#     my_page.add_tag('p', "This was made using composition one of the multiple examples of Polymorphism")
+#
+#     with open('test.html', 'w') as test_doc:
+#         my_page.display(file=test_doc)
 
-    with open('test.html', 'w') as test_doc:
-        my_page.display(file=test_doc)
+
+    # new_body=Body()
+    # new_body.add_tag('h1', "Aggregation")
+    # new_body.add_tag('p', "Unlike <strong>Composition</strong>, aggregation uses existing instances"
+    #                  "of objects to build up another object")
+    # new_body.add_tag('p', "The composed object doesn't actually own the objects that it's composed of"
+    #                  "- if it's destroyed, those objects continue to exit.")
+    #
+    # new_docType = DocType()
+    # #new_header = Head(new_docType, new_header, new_body)
+    # my_page = HtmlDoc()
+    #
+    # with open('test2.html', 'w') as test_doc:
+    #          my_page.display(file=test_doc)
