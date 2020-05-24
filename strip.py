@@ -1,0 +1,1 @@
+print("Go".strip('o'))
