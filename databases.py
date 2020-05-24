@@ -8,8 +8,14 @@ db.execute("INSERT INTO contacts VALUES('Blake', 42425345, 'blake@fakemail.com')
 
 cursor = db.cursor()
 cursor.execute("SELECT * FROM contacts")
-for row in cursor:
-    print(row)
+
+print(cursor.fetchall())
+
+for name, phone, email in cursor:
+    print(name, phone, email)
+
+
 
 cursor.close()
+db.commit()
 db.close()
