@@ -9,3 +9,5 @@ print(b_string)
 
 backslash_string = "This string uses \backslash \\f \cool huh?"
 print(backslash_string)
+
+error_string = r"the escape char at the end of the double quote doesn't work \""
