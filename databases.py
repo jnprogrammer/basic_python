@@ -14,8 +14,6 @@ print(cursor.fetchall())
 for name, phone, email in cursor:
     print(name, phone, email)
 
-
-
 cursor.close()
 db.commit()
 db.close()
