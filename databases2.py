@@ -2,9 +2,17 @@ import sqlite3
 
 db = sqlite3.connect("contacts.sqlite")
 
-update_sql = "UPDATE contacts SET email = '4nweflFIXBATMANjg@sdjhaf.com' WHERE contacts.name = 'Tom'"
+new_email = "whatTHisand@that.com"
+phone = 248982004
+name = input("Enter the name of a user to find them")
+
+# update_sql = "UPDATE contacts SET email = '{}' WHERE contacts.name = '{}'".format(new_email, name)
+update_sql = "UPDATE contacts SET email = ? WHERE name = ?"
+
+print(update_sql)
+
 update_cursor = db.cursor()
-update_cursor.execute(update_sql)
+update_cursor.execute(update_sql, (new_email, name))
 print("{} rows upated".format(update_cursor.rowcount))
 print("_" * 50)
 print("Are connections the same: {}".format(update_cursor.connection == db))
