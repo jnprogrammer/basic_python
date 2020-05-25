@@ -11,8 +11,9 @@ Eut = Penguin()
 flock.add_duck(Tel)
 flock.add_duck(Fin)
 flock.add_duck(duck4)
+flock.add_duck(Eut)
 flock.add_duck(Dan)
 flock.add_duck(fue)
-flock.add_duck(Eut)
+
 
 flock.migrate()
