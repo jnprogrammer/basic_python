@@ -1,12 +1,13 @@
-for i in range(10, 0, -2):
-    print("i is now {}".format(i))
+decimals = range(0, 100)
+print(decimals)
 
-name = input("What's your name?  ")
-age = int(input("How old are you? "))
+my_range = decimals[3:40:3]
+print(my_range)
 
-if age in range(16,66):
-    print("You got on Vacation some times")
-elif age > 30:
-    print("you should retire.")
-else:
-    print("Your just a kid, go enjoy it")
+for i in my_range:
+    print(i)
+
+print('='*40)
+
+for i in range(3, 40 ,3):
+    print(i)
