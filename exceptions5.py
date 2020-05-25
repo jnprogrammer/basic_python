@@ -53,7 +53,7 @@ class Flock(object):
         self.flock = []
 
     def add_duck(self, duck: Duck) -> None:
-        fly_method = getattr(duck, 'fly', None)  #the python way on checking if an object can perform an desired action
+        fly_method = getattr(duck, 'fly', None)  # the python way on checking if an object can perform an desired action
 
         # if isinstance(duck, Duck):
         if callable(fly_method):
@@ -66,10 +66,9 @@ class Flock(object):
         for duck in self.flock:
             try:
                 duck.fly()
+                raise AttributeError("TEST!! migrate exception handel")  # TODO: remove this test code
             except AttributeError as e:
                 print("This can't fly")
+                problem = e
         if problem:
             raise problem
-
-
-
