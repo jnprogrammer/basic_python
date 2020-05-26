@@ -1,10 +1,12 @@
 import datetime, sqlite3, pytz
 
-db = sqlite3.connect("accounts.sqlite")
+db = sqlite3.connect("accounts.sqlite", detect_types=sqlite3.PARSE_DECLTYPES)
 db.execute("CREATE TABLE IF NOT EXISTS accounts (name TEXT PRIMARY KEY NOT NULL, balance INTEGER NOT NULL)")
 db.execute("CREATE TABLE IF NOT EXISTS history (time TIMESTAMP NOT NULL, account TEXT NOT NULL,"
            " amount INTEGER NOT NULL, PRIMARY KEY (time, account))")
-
+db.execute("CREATE VIEW IF NOT EXISTS localhistory AS"
+           " SELECT strftime('%Y-%m-%d %H:%M:%f', history.time, 'localtime') AS localtime,"
+           " history.account, history.amount FROM history ORDER BY history.time")
 
 class Account(object):
 
@@ -70,11 +72,11 @@ if __name__ == '__main__':
     j.show_bal()
     print("*" * 45)
     ebb = Account("Ebb")
-    ebb.show_bal()
-
+    ebb.withdraw(43853)
+    print("*" * 45)
     tuvo = Account("TuVo")
     tuvo.deposit(424528)
-
-    ebb.withdraw(43853)
-
     tuvo.withdraw(53553)
+    print("*" * 45)
+    ebb.deposit(424228)
+    ebb.withdraw(30000)
