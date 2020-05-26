@@ -1,12 +1,16 @@
-import sqlite3
+import sqlite3, datetime, pytz
 
 db = sqlite3.connect("accounts.sqlite")
 db.execute("CREATE TABLE IF NOT EXISTS accounts (name TEXT PRIMARY KEY NOT NULL, balance INTEGER NOT NULL)")
-db.execute("CREATE TABLE IF NOT EXISTS transactions (time TIMESTAMP NOT NULL, account TEXT NOT NULL,"
+db.execute("CREATE TABLE IF NOT EXISTS history (time TIMESTAMP NOT NULL, account TEXT NOT NULL,"
            " amount INTEGER NOT NULL, PRIMARY KEY (time, account))")
 
 
 class Account(object):
+
+    @staticmethod
+    def _current_time():
+        return pytz.utc.localize(datetime.datetime.utcnow())
 
     def __init__(self, name: str, opening_balance: int = 10000):
         cursor = db.execute("SELECT name, balance FROM accounts WHERE (name = ?)", (name,))
@@ -24,23 +28,37 @@ class Account(object):
 
         self.show_bal()
 
+    def _save_update(self, amount):
+        new_bal = self._bal + amount
+        deposit_time = Account._current_time()
+        db.execute("UPDATE accounts SET balance = ? WHERE (name = ?)", (new_bal, self.name))
+        db.execute("INSERT INTO history VALUES(?, ?, ?)", (deposit_time, self.name, amount))
+        db.commit()
+        self._bal = new_bal
+
     def deposit(self, amount: int) -> float:
         if amount > 100.0:
-            self._bal += amount
-            print("{:.2f} deposited".format(amount / 100))
+            self._save_update(amount)
+            print("{} has deposited {:.2f}".format(self.name, amount / 100))
         return self._bal / 100
 
     def withdraw(self, amount: int) -> float:
         if 0 < amount <= self._bal:
-            self._bal -= amount
-            print("{} withdrawn".format(amount / 100))
+            self._save_update(-amount)
+            # new_bal = self._bal - amount
+            # withdrawal_time = Account._current_time(self)
+            # db.execute("UPDATE accounts SET balance = ? WHERE (name = ?)", (new_bal, self.name))
+            # db.execute("INSERT INTO history VALUES(?, ? ,?)", (withdrawal_time, self.name, -amount))
+            # db.commit()
+            print("{} has withdrawn {:.2f}".format(self.name, amount / 100))
             return amount / 100
         else:
-            print("Account has insufficient funds")
+            print("{}, Your account has insufficient funds to withdraw {}".format(self.name, amount))
             return self._bal / 100
 
     def show_bal(self):
-        print("\nYour Account Balance is {:.2f}".format(self._bal / 100))
+        print("\n{}'s Account Balance is {:.2f}".format(self.name, self._bal / 100))
+
 
 
 if __name__ == '__main__':
@@ -51,3 +69,10 @@ if __name__ == '__main__':
     print("*" * 45)
     ebb = Account("Ebb")
     ebb.show_bal()
+
+    tuvo = Account("TuVo")
+    tuvo.deposit(424528)
+
+    ebb.withdraw(43853)
+
+    tuvo.withdraw(53553)
