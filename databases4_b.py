@@ -35,10 +35,19 @@ class Account(object):
     def _save_update(self, amount):
         new_bal = self._bal + amount
         deposit_time = Account._current_time()
-        db.execute("UPDATE accounts SET balance = ? WHERE (name = ?)", (new_bal, self.name))
-        db.execute("INSERT INTO history VALUES(?, ?, ?)", (deposit_time, self.name, amount))
-        db.commit()
-        self._bal = new_bal
+
+        try:
+            db.execute("UPDATE accounts SET balance = ? WHERE (name = ?)", (new_bal, self.name))
+            db.execute("INSERT INTO history VALUES(?, ?, ?)", (deposit_time, self.name, amount))
+        except sqlite3.Error:
+            db.rollback()
+            pass
+        else:
+            db.commit()
+            self._bal = new_bal
+
+
+
 
     def deposit(self, amount: int) -> float:
         if amount > 100.0:
@@ -67,16 +76,15 @@ class Account(object):
 
 if __name__ == '__main__':
     j = Account("J")
-    j.deposit(400000)
-    j.deposit(13476825)
+    j.deposit(40000)
     j.show_bal()
     print("*" * 45)
     ebb = Account("Ebb")
-    ebb.withdraw(43853)
+    ebb.withdraw(4995)
     print("*" * 45)
     tuvo = Account("TuVo")
-    tuvo.deposit(424528)
-    tuvo.withdraw(53553)
+    tuvo.deposit(42528)
+    tuvo.withdraw(5353)
     print("*" * 45)
-    ebb.deposit(424228)
-    ebb.withdraw(30000)
+    ebb.deposit(42228)
+    ebb.withdraw(3000)
