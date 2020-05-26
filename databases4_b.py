@@ -1,4 +1,4 @@
-import sqlite3, datetime, pytz
+import datetime, sqlite3, pytz
 
 db = sqlite3.connect("accounts.sqlite")
 db.execute("CREATE TABLE IF NOT EXISTS accounts (name TEXT PRIMARY KEY NOT NULL, balance INTEGER NOT NULL)")
@@ -10,7 +10,9 @@ class Account(object):
 
     @staticmethod
     def _current_time():
-        return pytz.utc.localize(datetime.datetime.utcnow())
+        #return pytz.utc.localize(datetime.datetime.utcnow())
+        local_time = pytz.utc.localize(datetime.datetime.utcnow())
+        return local_time.astimezone()
 
     def __init__(self, name: str, opening_balance: int = 10000):
         cursor = db.execute("SELECT name, balance FROM accounts WHERE (name = ?)", (name,))

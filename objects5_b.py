@@ -1,4 +1,6 @@
 import random
+
+
 class Enemy:
 
     def __init__(self, name="Enemy", hit_points=0, lives=3, attack=2):
@@ -31,11 +33,12 @@ class Enemy:
 class Troll(Enemy):
 
     def __init__(self, name):
-        #super(Troll, self).__init__(name=name, lives=710, hit_points=420)
+        # super(Troll, self).__init__(name=name, lives=710, hit_points=420)
         super().__init__(name=name, lives=710, hit_points=420, attack=420)
 
     def lariat(self):
         print("RaGE Larraiat!! !! {0._name} Attacks with a ferocious Lariat".format(self))
+
 
 class Ogar(Enemy):
 
@@ -43,7 +46,7 @@ class Ogar(Enemy):
         super().__init__(name=name, lives=2, hit_points=42, attack=3)
 
     def dodge(self):
-        if random.randint(1,3) == 3:
+        if random.randint(1, 3) == 3:
             print("{0._name} Dodges the attack !!".format(self))
             return True
         else:
