@@ -2,7 +2,7 @@ import tkinter, sqlite3
 
 con = sqlite3.connect('music.sqlite')
 
-mainWindow = tkinter.TK()
+mainWindow = tkinter.Tk()
 mainWindow.title('Music DB Browser')
 mainWindow.geometry('1024x768')
 
@@ -26,7 +26,7 @@ tkinter.Label(mainWindow, text="Songs").grid(row=0, column=2)
 
 artistList = tkinter.Listbox(mainWindow)
 artistList.grid(row=1, column=0, sticky='nsew', rowspan=2, padx=(30, 0))
-artistList.config(boarder=2, relief='sunken')
+artistList.config(border=2, relief='sunken')
 
 # TODO: Albums listbox
 
@@ -34,7 +34,7 @@ albumLV = tkinter.Variable(mainWindow)
 albumLV.set(("Choose an artist",))
 albumList = tkinter.Listbox(mainWindow, listvariable=albumLV)
 albumList.grid(row=1, column=1, sticky='nsew', padx=(30,0))
-albumList.config(boarder=2, relief='sunken')
+albumList.config(border=2, relief='sunken')
 
 # Songs list box
 
@@ -42,7 +42,7 @@ songLV = tkinter.Variable(mainWindow)
 songLV.set(("Choose an album", ))
 songList = tkinter.Listbox(mainWindow, listvariable=songLV)
 songList.grid(row=1, column=2, sticky='nsew', padx=(30, 0))
-songList.config(boarder=2, relief='sunken')
+songList.config(border=2, relief='sunken')
 
 
 # main loop
