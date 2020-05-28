@@ -17,9 +17,12 @@ class DataListBox(Scrollbox):
     def __init__(self, window, connection, table, field, sort_order=(), **kwargs):
         super().__init__(window, **kwargs)
 
+        self.linked_box = None
+        self.link_field = None
         self.cursor = connection.cursor()
         self.table = table
         self.field = field
+        self.bind('<<ListboxSelect>>', self.on_select)
 
         self.sql_select = "SELECT " + self.field + ", _id" + " FROM " + self.table
         if sort_order:
@@ -30,37 +33,38 @@ class DataListBox(Scrollbox):
     def clear(self):
         self.delete(0, tkinter.END)
 
-    def requery(self):
-        print(self.sql_select + self.sql_sort) # TODO delete this ?
-        self.cursor.execute(self.sql_select + self.sql_sort)
+
+    def link(self, widget, link_field):
+        self.linked_box = widget
+        widget.link_field = link_field
+
+    def requery(self, link_value=None):
+        if link_value and self.link_field:
+            sql = self.sql_select + " WHERE " + self.link_field + "=?" + self.sql_sort
+            print(sql)
+            self.cursor.execute(sql, (link_value,))
+        else:
+            print(self.sql_select + self.sql_sort) # TODO delete this ?
+            self.cursor.execute(self.sql_select + self.sql_sort)
 
         self.clear()
         for val in self.cursor:
             self.insert(tkinter.END, val[0])
 
+        if self.linked_box:
+             self.linked_box.clear()
 
-def get_albums(event):
-    lb = event.widget
-    index = lb.curselection()[0]
-    artist_name = lb.get(index),
 
-    artist_id = con.execute("SELECT artists._id FROM artists WHERE artists.name = ?", artist_name).fetchone()
-    alist = []
-    for row in con.execute("SELECT albums.name FROM albums WHERE albums.artist = ? ORDER BY albums.name", artist_id):
-        alist.append(row[0])
-    albumLV.set(tuple(alist))
-    songLV.set(("Choose an album", ))
 
-def get_songs(event):
-    lb = event.widget
-    index = int(lb.curselection()[0])
-    album_name = lb.get(index),
+    def on_select(self, event):
+        #lb = event.widget
+        if self.linked_box:
+            print(self is event.widget)     # TODO delete
+            index = self.curselection()[0]
+            value = self.get(index),
 
-    album_id = con.execute("SELECT albums._id FROM albums WHERE albums.name=?", album_name).fetchone()
-    alist=[]
-    for x in con.execute("SELECT songs.title FROM songs WHERE songs.album=? ORDER BY songs.track", album_id):
-        alist.append(x[0])
-    songLV.set(tuple(alist))
+            link_id = self.cursor.execute(self.sql_select + " WHERE " + self.field + "=?", value).fetchone()[1]
+            self.linked_box.requery(link_id)
 
 
 mainWindow = tkinter.Tk()
@@ -94,25 +98,29 @@ artistList.config(border=2, relief='sunken')
 
 artistList.requery()
 
-artistList.bind('<<ListboxSelect>>',get_albums)
+
 # TODO: Albums listbox
 
 albumLV = tkinter.Variable(mainWindow)
 albumLV.set(("Choose an artist",))
-albumList = Scrollbox(mainWindow, listvariable=albumLV)
+albumList = DataListBox(mainWindow, con, 'albums', 'name', sort_order=('name',) )
+albumList.requery(12)
 albumList.grid(row=1, column=1, sticky='nsew', padx=(30, 0))
 albumList.config(border=2, relief='sunken')
 
-albumList.bind('<<ListboxSelect>>', get_songs)
-
+# albumList.bind('<<ListboxSelect>>', get_songs)
+artistList.link(albumList, "artist")
 
 # Songs list box
 
 songLV = tkinter.Variable(mainWindow)
 songLV.set(("Choose an album", ))
-songList = Scrollbox(mainWindow, listvariable=songLV)
+songList = DataListBox(mainWindow, con, 'songs', 'title', ('track', 'title'))
+songList.requery()
 songList.grid(row=1, column=2, sticky='nsew', padx=(30, 0))
 songList.config(border=2, relief='sunken')
+
+albumList.link(songList, "album")
 
 
 # main loop
