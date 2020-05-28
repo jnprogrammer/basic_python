@@ -1,7 +1,5 @@
 import tkinter, sqlite3
 
-con = sqlite3.connect('music.sqlite')
-
 class Scrollbox(tkinter.Listbox):
 
     def __init__(self, window, **kwargs):
@@ -67,66 +65,70 @@ class DataListBox(Scrollbox):
             self.linked_box.requery(link_id)
 
 
-mainWindow = tkinter.Tk()
-mainWindow.title('Music DB Browser')
-mainWindow.geometry('1024x768')
+if __name__ == '__main__':
 
-mainWindow.columnconfigure(0, weight=2)
-mainWindow.columnconfigure(1, weight=2)
-mainWindow.columnconfigure(2, weight=2)
-mainWindow.columnconfigure(3, weight=2) #spacer column
+    con = sqlite3.connect('music.sqlite')
 
-mainWindow.rowconfigure(0, weight=1)
-mainWindow.rowconfigure(1, weight=5)
-mainWindow.rowconfigure(2, weight=5)
-mainWindow.rowconfigure(3, weight=1)
+    mainWindow = tkinter.Tk()
+    mainWindow.title('Music DB Browser')
+    mainWindow.geometry('1024x768')
 
-# ==== labels
+    mainWindow.columnconfigure(0, weight=2)
+    mainWindow.columnconfigure(1, weight=2)
+    mainWindow.columnconfigure(2, weight=2)
+    mainWindow.columnconfigure(3, weight=2) #spacer column
 
-tkinter.Label(mainWindow, text="Artists").grid(row=0, column=0)
-tkinter.Label(mainWindow, text="Albums").grid(row=0, column=1)
-tkinter.Label(mainWindow, text="Songs").grid(row=0, column=2)
+    mainWindow.rowconfigure(0, weight=1)
+    mainWindow.rowconfigure(1, weight=5)
+    mainWindow.rowconfigure(2, weight=5)
+    mainWindow.rowconfigure(3, weight=1)
 
-# +++ Artists
+    # ==== labels
 
-artistList = DataListBox(mainWindow, con, 'artists', 'name')
-artistList.grid(row=1, column=0, sticky='nsew', rowspan=2, padx=(30, 0))
-artistList.config(border=2, relief='sunken')
+    tkinter.Label(mainWindow, text="Artists").grid(row=0, column=0)
+    tkinter.Label(mainWindow, text="Albums").grid(row=0, column=1)
+    tkinter.Label(mainWindow, text="Songs").grid(row=0, column=2)
 
-# for artist in con.execute("SELECT artists.name FROM artists ORDER BY artists.name"):
-#     artistList.insert(tkinter.END, artist[0])
+    # +++ Artists
 
-artistList.requery()
+    artistList = DataListBox(mainWindow, con, 'artists', 'name')
+    artistList.grid(row=1, column=0, sticky='nsew', rowspan=2, padx=(30, 0))
+    artistList.config(border=2, relief='sunken')
 
+    # for artist in con.execute("SELECT artists.name FROM artists ORDER BY artists.name"):
+    #     artistList.insert(tkinter.END, artist[0])
 
-# TODO: Albums listbox
-
-albumLV = tkinter.Variable(mainWindow)
-albumLV.set(("Choose an artist",))
-albumList = DataListBox(mainWindow, con, 'albums', 'name', sort_order=('name',) )
-albumList.requery(12)
-albumList.grid(row=1, column=1, sticky='nsew', padx=(30, 0))
-albumList.config(border=2, relief='sunken')
-
-# albumList.bind('<<ListboxSelect>>', get_songs)
-artistList.link(albumList, "artist")
-
-# Songs list box
-
-songLV = tkinter.Variable(mainWindow)
-songLV.set(("Choose an album", ))
-songList = DataListBox(mainWindow, con, 'songs', 'title', ('track', 'title'))
-songList.requery()
-songList.grid(row=1, column=2, sticky='nsew', padx=(30, 0))
-songList.config(border=2, relief='sunken')
-
-albumList.link(songList, "album")
+    artistList.requery()
 
 
-# main loop
-# testList = range(0, 100)
-# albumLV.set(tuple(testList))
-mainWindow.mainloop()
-print("Closing database connection")
-con.close()
+    # TODO: Albums listbox
+
+    albumLV = tkinter.Variable(mainWindow)
+    albumLV.set(("Choose an artist",))
+    albumList = DataListBox(mainWindow, con, 'albums', 'name', sort_order=('name',) )
+    # albumList.requery(12)
+    albumList.grid(row=1, column=1, sticky='nsew', padx=(30, 0))
+    albumList.config(border=2, relief='sunken')
+
+    # albumList.bind('<<ListboxSelect>>', get_songs)
+    artistList.link(albumList, "artist")
+
+    # Songs list box
+
+    songLV = tkinter.Variable(mainWindow)
+    songLV.set(("Choose an album", ))
+    songList = DataListBox(mainWindow, con, 'songs', 'title', ('track', 'title'))
+    # songList.requery()
+    songList.grid(row=1, column=2, sticky='nsew', padx=(30, 0))
+    songList.config(border=2, relief='sunken')
+
+    albumList.link(songList, "album")
+
+
+    # main loop
+    # testList = range(0, 100)
+    # albumLV.set(tuple(testList))
+    mainWindow.mainloop()
+    print("Closing database connection")
+    con.close()
 
