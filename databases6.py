@@ -23,10 +23,20 @@ class DataListBox(Scrollbox):
 
         self.sql_select = "SELECT " + self.field + ", _id" + " FROM " + self.table
         if sort_order:
-            self.sql_select = " ORDER BY " + ','.join(sort_order)
+            self.sql_sort= " ORDER BY " + ','.join(sort_order)
         else:
-            self.sql_select = " ORDER BY " + self.field
+            self.sql_sort = " ORDER BY " + self.field
 
+    def clear(self):
+        self.delete(0, tkinter.END)
+
+    def requery(self):
+        print(self.sql_select + self.sql_sort) # TODO delete this ?
+        self.cursor.execute(self.sql_select + self.sql_sort)
+
+        self.clear()
+        for val in self.cursor:
+            self.insert(tkinter.END, val[0])
 
 
 def get_albums(event):
@@ -75,12 +85,14 @@ tkinter.Label(mainWindow, text="Songs").grid(row=0, column=2)
 
 # +++ Artists
 
-artistList = Scrollbox(mainWindow)
+artistList = DataListBox(mainWindow, con, 'artists', 'name')
 artistList.grid(row=1, column=0, sticky='nsew', rowspan=2, padx=(30, 0))
 artistList.config(border=2, relief='sunken')
 
-for artist in con.execute("SELECT artists.name FROM artists ORDER BY artists.name"):
-    artistList.insert(tkinter.END, artist[0])
+# for artist in con.execute("SELECT artists.name FROM artists ORDER BY artists.name"):
+#     artistList.insert(tkinter.END, artist[0])
+
+artistList.requery()
 
 artistList.bind('<<ListboxSelect>>',get_albums)
 # TODO: Albums listbox
