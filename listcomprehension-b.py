@@ -22,3 +22,5 @@ def center_t(*args):
 center_t("ASdg")
 center_t("dsfsdjf , fsdang  , sdaf s,dsa f")
 center_t(434)
+
+
