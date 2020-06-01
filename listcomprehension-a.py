@@ -9,3 +9,14 @@ squares = [number ** 2 for number in numbers]
 index_pos = numbers.index(number)
 
 print(squares[index_pos])
+
+
+inch_measurement = (3, 4, 7)
+
+cm_measurement = [inch * 2.54 for inch in inch_measurement]
+print(cm_measurement)
+
+
+
+cm_measurement = tuple([inch * 2.54 for inch in inch_measurement])
+print(cm_measurement)
